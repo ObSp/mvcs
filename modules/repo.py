@@ -1,6 +1,5 @@
 from datetime import datetime
 from hashlib import sha1
-import mimetypes
 from modules.progress import Counter
 import tomlkit
 import modules.user as user
@@ -92,7 +91,7 @@ def isIgnored(path: str):
 
 def readBlob(hash: str) -> str:
 
-    with open(f".mvcs/objects/{hash}", "r") as f:
+    with open(f".mvcs/objects/{hash}", "rb") as f:
         return f.read()
 
 def hashObject(object: str):
@@ -138,7 +137,7 @@ def createObjectFiles(objects: list[str], verbose: bool = False):
 
     for object in objects:
         try:
-            with open(object, "r") as f:
+            with open(object, "rb") as f:
                 content = f.read()
         except:
             print(f"Error reading object {object}, skipping...")
@@ -146,7 +145,7 @@ def createObjectFiles(objects: list[str], verbose: bool = False):
 
         hash = hashObject(object)
         hashes.append(hash)
-        with open(f".mvcs/objects/{hash}", "x") as f:
+        with open(f".mvcs/objects/{hash}", "wb") as f:
             f.write(content)
         
         if verbose: counter.increment()
@@ -180,9 +179,6 @@ def walkDir(path: str, callback: callable = None, arr: list[str] = []) -> list[s
         if isIgnored(f): continue
         f = os.path.join(path, f)
         relpath = os.path.relpath(f, os.getcwd())
-
-        mime = mimetypes.guess_type(relpath)[0]
-        print(mime)
 
         if os.path.isdir(f):
             walkDir(os.path.join(path, f), callback, arr)

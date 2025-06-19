@@ -1,5 +1,11 @@
-from modules.mvcsconfig import readFile
 import modules.repo as repo
+
+def readFile(filePath):
+    """
+    Reads a file and returns its content.
+    """
+    with open(filePath, 'rb') as file:
+        return file.read()
 
 def isChanged(path: str) -> bool:
     lastVersion = getLastVersionOfFile(path)

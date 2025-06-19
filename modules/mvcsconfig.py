@@ -4,7 +4,7 @@ def readFile(filePath):
     """
     Reads a file and returns its content.
     """
-    with open(filePath, 'r') as file:
+    with open(filePath, 'rb') as file:
         return file.read()
     
 def readMvcsConfig(filePath):
