@@ -1,5 +1,9 @@
 import shutil
 from actions.init import steps
+from modules.util import *
+
+def printUsage():
+    print(f"{make_green("USAGE:")} mvcs destroy")
 
 def counter(steps: int, messager, callback):
     for i in range(steps):
@@ -11,10 +15,12 @@ def main(args):
     """
     Destroys the mvcs repository in the current directory.
     """
+
+    check_for_repo()
     
-    answer = input("Are you sure you want to destroy the working mvcs repository? (y/n): ")
+    answer = input(make_red("Are you sure you want to destroy the working mvcs repository? (y/n): "))
     if answer.lower() != "y":
-        return print("error: aborted destroy.")
+        return print_error("Aborted destroy.")
     
     reverseSteps = steps["dirs"].copy()
     reverseSteps.reverse()
@@ -27,4 +33,4 @@ def main(args):
         lambda i: shutil.rmtree(reverseSteps[i])
     )
 
-    print("Successfully destroyed working mvcs repository.")
+    print(make_green("Successfully destroyed working mvcs repository."))
