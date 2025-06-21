@@ -6,6 +6,8 @@ import modules.user as user
 import modules.diff as diff
 import os
 
+from modules.util import make_green
+
 class TreeObject:
     def __init__(self, path: str, blobHash: str):
         self.path = path
@@ -133,7 +135,7 @@ def createObjectFiles(objects: list[str], verbose: bool = False):
     hashes = []
 
     if verbose:
-        counter = Counter(len(objects), lambda i, total: f"Creating object files... [{i}/{total}]")
+        counter = Counter(len(objects), lambda i, total: f"Creating object files... " + make_green(f"[{i}/{total}]"))
 
     for object in objects:
         try:
@@ -196,7 +198,7 @@ def createCommit(
     Creates a commit using the current state of the repository.
     """
 
-    if verbose: dirCounter = Counter(None, lambda i, _: f"Scanning workspace files... [{i}]")
+    if verbose: dirCounter = Counter(None, lambda i, _: f"Scanning workspace files... "+make_green(f"[{i}]"))
 
     #dirFiles = [f for f in os.listdir(".") if os.path.isfile(f) and f not in getIgnored()]
     dirFiles = walkDir(None, lambda f: dirCounter.increment() if verbose else None)
@@ -217,4 +219,4 @@ def createCommit(
     setHEAD(str(commit.date))
 
     if verbose:
-        print(f"Successfully commited '{message}'")
+        print(make_green(f"Successfully commited '{message}'"))

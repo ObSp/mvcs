@@ -1,6 +1,6 @@
 import os
 import modules.repo as repo
-from modules.util import make_green
+from modules.util import make_green, make_white
 
 steps = {
     "dirs": [
@@ -20,6 +20,7 @@ def counter(steps: int, messager, callback):
         callback(i)
 
 def main(args):
+    print(make_white("Creating .mvcs files..."))
 
     counter(
         len(steps["dirs"]),
@@ -39,8 +40,8 @@ def main(args):
 
     print("\n")
 
-    print("Creating initial commit...")
+    print(make_white("Creating initial commit..."))
 
     repo.createCommit("Initial commit", True)
 
-    print("Successfully created working mvcs repository.")
+    print(make_green("Successfully created working mvcs repository."))

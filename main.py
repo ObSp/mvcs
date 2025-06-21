@@ -2,6 +2,8 @@ from actions.Actions import Actions
 import modules.user as user
 import sys
 
+from modules.util import make_green, print_error
+
 
 def main():
     args = sys.argv[1:]
@@ -15,7 +17,7 @@ def main():
     other_args = args[1:]
 
     if not command in Actions.actionList:
-        return print(f"mvcs: '{command}' is not a mvcs command. See 'mvcs help'.")
+        return print_error(f"mvcs '{command}' is not a mvcs command. See '{make_green("mvcs help")}'.")
     
     Actions.actionList[command].main(other_args)
 

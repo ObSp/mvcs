@@ -11,6 +11,9 @@ def make_red(message: str):
 def make_green(message: str):
     return f"{Fore.GREEN + Style.BRIGHT}{message}{Style.RESET_ALL}"
 
+def make_white(message: str):
+    return f"{Fore.WHITE + Style.BRIGHT}{message}{Style.RESET_ALL}"
+
 def check_for_repo():
     if os.path.exists(".mvcs"): return
 

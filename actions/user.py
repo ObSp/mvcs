@@ -1,5 +1,6 @@
 import modules.user as user
 import modules.mvcsconfig as mvcsconfigMod
+from modules.util import make_green
 
 def main(args):
     """
@@ -10,7 +11,7 @@ def main(args):
 
     if command is None:
         print("Current user: ", user.findUser())
-        print("Usage: 'mvcs user <init|set>'")
+        print(make_green("USAGE: ") + "mvcs user <init|set>")
         
     elif command == "init":
         if user.findUser() is not None:
